@@ -1,75 +1,95 @@
 import React from 'react';
-import { CloudSun, Sprout, Landmark, FileText, BookOpen, Search, UserX } from 'lucide-react';
+import { CloudSun, Sprout, Landmark, FileText, BookOpen, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const ProblemSection = () => {
   return (
-    <section className="py-24 bg-[var(--color-agri-cream)] relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[var(--color-agri-dark)] mb-4">
+          <p className="text-sm font-bold text-green-600 uppercase tracking-widest mb-4">
+            The Problem
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
             Farming information is everywhere.<br/>
-            <span className="text-[var(--color-agri-earth)]">Useful decisions are not.</span>
+            <span className="text-gray-400">Useful decisions are not.</span>
           </h2>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+            Farmers don't need more raw data. They need that data translated into the right action at the exact right time.
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
           
-          {/* Left: Scattered Information */}
-          <div className="relative h-[500px] bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden p-8 flex items-center justify-center">
-            
-            {/* Background pattern */}
-            <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(var(--color-agri-forest) 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
-            
-            <div className="relative w-full h-full">
-              <ScatteredApp icon={<CloudSun className="text-blue-500" />} label="Weather app" top="10%" left="10%" delay={0} />
-              <ScatteredApp icon={<Sprout className="text-green-500" />} label="Crop advice" top="20%" left="60%" delay={0.1} />
-              <ScatteredApp icon={<Landmark className="text-orange-500" />} label="Government portal" top="45%" left="5%" delay={0.2} />
-              <ScatteredApp icon={<FileText className="text-gray-500" />} label="Forms" top="40%" left="75%" delay={0.3} />
-              <ScatteredApp icon={<BookOpen className="text-amber-600" />} label="Expense notebook" top="75%" left="20%" delay={0.4} />
-              <ScatteredApp icon={<Search className="text-purple-500" />} label="Disease search" top="70%" left="65%" delay={0.5} />
-              
-              {/* Confused Farmer in Center */}
-              <motion.div 
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-red-50 rounded-full flex flex-col items-center justify-center border-4 border-white shadow-xl z-20"
-              >
-                <span className="text-4xl mb-1">👨‍🌾</span>
-                <UserX className="w-5 h-5 text-red-500" />
-              </motion.div>
-              
-              {/* Disconnected Lines */}
-              <svg className="absolute inset-0 w-full h-full -z-10 opacity-20" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4">
-                <line x1="25%" y1="20%" x2="45%" y2="40%" />
-                <line x1="75%" y1="30%" x2="55%" y2="45%" />
-                <line x1="25%" y1="55%" x2="40%" y2="55%" />
-                <line x1="85%" y1="50%" x2="65%" y2="55%" />
-                <line x1="35%" y1="85%" x2="45%" y2="65%" />
-                <line x1="75%" y1="80%" x2="55%" y2="65%" />
-              </svg>
+          {/* Bento Item 1: Apps */}
+          <BentoCard 
+            className="md:col-span-2 bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200"
+            delay={0.1}
+          >
+            <div className="h-full flex flex-col justify-between">
+              <div className="flex gap-4 flex-wrap mb-4">
+                <AppIcon icon={<CloudSun className="text-blue-500" />} label="Weather app" />
+                <AppIcon icon={<Sprout className="text-green-500" />} label="Crop advice" />
+                <AppIcon icon={<Landmark className="text-orange-500" />} label="Gov portal" />
+                <AppIcon icon={<FileText className="text-gray-500" />} label="Forms" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Too many apps</h3>
+                <p className="text-gray-500">Juggling a dozen different applications just to make one simple decision.</p>
+              </div>
             </div>
-          </div>
+          </BentoCard>
 
-          {/* Right: Problem Statements */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <ProblemStatement title="Too many apps" />
-              <ProblemStatement title="Complicated forms" />
-              <ProblemStatement title="Unclear crop symptoms" />
-              <ProblemStatement title="Weather without context" />
-              <ProblemStatement title="Expenses without a clear picture of profit" />
+          {/* Bento Item 2: Weather */}
+          <BentoCard 
+            className="bg-blue-50 border border-blue-100 relative overflow-hidden"
+            delay={0.2}
+          >
+            <div className="absolute -right-4 -top-4 opacity-10">
+              <CloudSun className="w-48 h-48 text-blue-500" />
             </div>
-            
-            <div className="pt-8 border-t border-gray-200 mt-8">
-              <p className="text-xl font-bold text-[var(--color-agri-forest)] leading-relaxed border-l-4 border-[var(--color-agri-yellow)] pl-6 py-2 bg-white rounded-r-xl shadow-sm">
-                Farmers don't need more information.<br/>
-                They need information translated into the right action.
-              </p>
+            <div className="h-full flex flex-col justify-end relative z-10">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Weather without context</h3>
+              <p className="text-gray-600 text-sm">"It will rain." But should I spray fertilizer today or tomorrow?</p>
             </div>
-          </div>
+          </BentoCard>
+
+          {/* Bento Item 3: Expenses */}
+          <BentoCard 
+            className="bg-green-50 border border-green-100 relative overflow-hidden"
+            delay={0.3}
+          >
+            <div className="absolute -right-4 -bottom-4 opacity-10">
+              <BookOpen className="w-48 h-48 text-green-500" />
+            </div>
+            <div className="h-full flex flex-col justify-end relative z-10">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Opaque expenses</h3>
+              <p className="text-gray-600 text-sm">Tracking expenses in notebooks without a clear picture of actual profit margins.</p>
+            </div>
+          </BentoCard>
+
+          {/* Bento Item 4: Symptoms */}
+          <BentoCard 
+            className="md:col-span-2 bg-gray-900 text-white relative overflow-hidden group"
+            delay={0.4}
+          >
+            <div className="absolute inset-0">
+              <img 
+                src="https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1?auto=format&fit=crop&q=80&w=1000" 
+                alt="Farmer checking crops"
+                className="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
+            </div>
+            <div className="h-full flex flex-col justify-end relative z-10">
+              <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
+                <Search className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Unclear crop symptoms</h3>
+              <p className="text-gray-300">Endless internet searching trying to figure out what disease is affecting the harvest.</p>
+            </div>
+          </BentoCard>
 
         </div>
       </div>
@@ -77,25 +97,26 @@ export const ProblemSection = () => {
   );
 };
 
-const ScatteredApp = ({ icon, label, top, left, delay }: { icon: React.ReactNode, label: string, top: string, left: string, delay: number }) => (
+const BentoCard = ({ children, className, delay }: { children: React.ReactNode, className: string, delay: number }) => (
   <motion.div 
-    initial={{ opacity: 0, y: 10 }}
+    initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay, duration: 0.5 }}
-    className="absolute bg-white px-4 py-3 rounded-xl shadow-md border border-gray-100 flex items-center gap-3 z-10 hover:shadow-lg transition-shadow"
-    style={{ top, left }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ delay, duration: 0.6 }}
+    className={`rounded-[2rem] p-8 shadow-sm hover:shadow-md transition-shadow ${className}`}
+  >
+    {children}
+  </motion.div>
+);
+
+const AppIcon = ({ icon, label }: { icon: React.ReactNode, label: string }) => (
+  <motion.div 
+    whileHover={{ y: -5 }}
+    className="bg-white px-4 py-2.5 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center gap-2 cursor-pointer"
   >
     <div className="bg-gray-50 p-2 rounded-lg">
       {React.cloneElement(icon as React.ReactElement<any>, { className: "w-5 h-5" })}
     </div>
-    <span className="font-semibold text-gray-700 text-sm">{label}</span>
+    <span className="font-semibold text-gray-700 text-[10px] uppercase tracking-wider">{label}</span>
   </motion.div>
-);
-
-const ProblemStatement = ({ title }: { title: string }) => (
-  <div className="flex items-start gap-4">
-    <div className="mt-1 w-2 h-2 rounded-full bg-[var(--color-agri-earth)] shrink-0"></div>
-    <h3 className="text-xl font-bold text-gray-800">{title}</h3>
-  </div>
 );

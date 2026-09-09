@@ -4,54 +4,90 @@ import { ShieldAlert, CloudSun, FileSpreadsheet, Wallet, LayoutDashboard, Mic, W
 
 export const SolutionSection = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-32 bg-gray-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[var(--color-agri-dark)] mb-4">
+        <div className="text-center mb-24">
+          <p className="text-sm font-bold text-green-600 uppercase tracking-widest mb-4">
             Meet AgriScribe-AI
-          </h2>
-          <p className="text-xl text-gray-600 font-medium max-w-2xl mx-auto">
-            One intelligent place for your farm.
           </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+            One intelligent place <br /> for your farm.
+          </h2>
         </div>
 
-        <div className="relative h-[600px] flex items-center justify-center max-w-4xl mx-auto">
+        {/* Orbiting Interactive Diagram */}
+        <div className="relative h-[500px] sm:h-[600px] flex items-center justify-center max-w-4xl mx-auto mb-24">
           
           {/* Central Hub */}
           <motion.div 
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="relative z-20 w-48 h-48 bg-[var(--color-agri-forest)] rounded-full shadow-2xl flex flex-col items-center justify-center text-white border-8 border-white/80"
+            className="relative z-20 w-48 h-48 sm:w-56 sm:h-56 rounded-full shadow-2xl flex flex-col items-center justify-center text-white border-8 border-white overflow-hidden group"
           >
-            <Wheat className="w-12 h-12 mb-2 text-[var(--color-agri-yellow)]" />
-            <span className="font-bold text-lg tracking-wide">YOUR FARM</span>
+            <div className="absolute inset-0">
+              <img 
+                src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&q=80&w=800" 
+                alt="Farming Precision" 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-green-900/60 backdrop-blur-[2px]"></div>
+            </div>
+            <div className="relative z-10 flex flex-col items-center">
+              <Wheat className="w-12 h-12 mb-2 text-green-300" />
+              <span className="font-bold text-xl tracking-wider">YOUR FARM</span>
+            </div>
           </motion.div>
 
           {/* Orbiting Nodes */}
-          <div className="absolute inset-0">
-            <Node icon={<ShieldAlert />} title="Crop Health" angle={-90} delay={0.1} color="text-red-600" />
+          <div className="absolute inset-0 hidden sm:block">
+            <Node icon={<ShieldAlert />} title="Crop Health" angle={-90} delay={0.1} color="text-red-500" />
             <Node icon={<CloudSun />} title="Weather" angle={-30} delay={0.2} color="text-blue-500" />
-            <Node icon={<Wallet />} title="Economics" angle={30} delay={0.3} color="text-green-600" />
+            <Node icon={<Wallet />} title="Economics" angle={30} delay={0.3} color="text-emerald-500" />
             <Node icon={<FileSpreadsheet />} title="Documents" angle={90} delay={0.4} color="text-gray-600" />
-            <Node icon={<LayoutDashboard />} title="Farm Health" angle={150} delay={0.5} color="text-purple-600" />
-            <Node icon={<Mic />} title="Voice Assistant" angle={210} delay={0.6} color="text-[var(--color-agri-forest)]" />
+            <Node icon={<LayoutDashboard />} title="Farm Health" angle={150} delay={0.5} color="text-purple-500" />
+            <Node icon={<Mic />} title="Voice Assistant" angle={210} delay={0.6} color="text-green-600" />
+          </div>
+
+          {/* Mobile Grid Fallback (visible only on small screens) */}
+          <div className="absolute inset-0 flex sm:hidden flex-wrap items-center justify-center gap-4 pt-64">
+            <MobileNode icon={<ShieldAlert />} title="Crop Health" color="text-red-500" />
+            <MobileNode icon={<CloudSun />} title="Weather" color="text-blue-500" />
+            <MobileNode icon={<Mic />} title="Voice" color="text-green-600" />
           </div>
 
           {/* SVG Connecting Lines Background */}
-          <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-            <circle cx="50%" cy="50%" r="200" stroke="#f3f4f6" strokeWidth="2" fill="none" />
-            <circle cx="50%" cy="50%" r="200" stroke="var(--color-agri-lightgreen)" strokeWidth="4" fill="none" strokeDasharray="10 20" className="animate-[spin_60s_linear_infinite]" />
+          <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none hidden sm:block">
+            <circle cx="50%" cy="50%" r="220" stroke="#e5e7eb" strokeWidth="1" fill="none" />
+            <circle cx="50%" cy="50%" r="220" stroke="#22c55e" strokeWidth="2" fill="none" strokeDasharray="8 16" className="animate-[spin_60s_linear_infinite]" opacity="0.5" />
           </svg>
-
         </div>
 
-        <div className="mt-16 text-center max-w-3xl mx-auto">
-          <p className="text-xl font-medium text-gray-700 leading-relaxed bg-[var(--color-agri-cream)] p-8 rounded-2xl border border-[var(--color-agri-earth)]/20 shadow-sm">
-            AgriScribe remembers the context of your farm so every recommendation becomes more personal and relevant.
-          </p>
-        </div>
+        {/* Bottom Horizontal Banner Card */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="bg-white rounded-[2rem] p-6 shadow-xl border border-gray-100 flex flex-col md:flex-row items-center gap-10 max-w-5xl mx-auto group"
+        >
+          <div className="w-full md:w-1/3 h-48 rounded-2xl overflow-hidden shadow-inner flex-shrink-0 relative">
+            <img 
+              src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&q=80&w=800" 
+              alt="Greenhouse technology" 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div className="w-full md:w-2/3 pr-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight mb-4">
+              AgriScribe remembers the context of your farm.
+            </h3>
+            <p className="text-gray-500 font-medium text-lg">
+              Every recommendation becomes more personal and relevant over time, adapting to your specific crops, climate, and practices.
+            </p>
+          </div>
+        </motion.div>
 
       </div>
     </section>
@@ -59,9 +95,8 @@ export const SolutionSection = () => {
 };
 
 const Node = ({ icon, title, angle, delay, color }: { icon: React.ReactNode, title: string, angle: number, delay: number, color: string }) => {
-  const radius = 200; // Match SVG circle radius
+  const radius = 220; // Match SVG circle radius
   const radian = (angle * Math.PI) / 180;
-  // CSS top/left percentages for absolute positioning from center
   const top = `calc(50% + ${Math.sin(radian) * radius}px)`;
   const left = `calc(50% + ${Math.cos(radian) * radius}px)`;
 
@@ -70,14 +105,23 @@ const Node = ({ icon, title, angle, delay, color }: { icon: React.ReactNode, tit
       initial={{ opacity: 0, scale: 0 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ delay, type: "spring", stiffness: 50 }}
-      className="absolute flex flex-col items-center w-32 text-center -translate-x-1/2 -translate-y-1/2 z-10"
+      transition={{ delay, type: "spring", stiffness: 60 }}
+      className="absolute flex flex-col items-center w-36 text-center -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer"
       style={{ top, left }}
     >
-      <div className="w-16 h-16 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center mb-3 group hover:scale-110 transition-transform">
-        {React.cloneElement(icon as React.ReactElement<any>, { className: `w-8 h-8 ${color}` })}
+      <div className="w-16 h-16 bg-white rounded-2xl shadow-md border border-gray-100 flex items-center justify-center mb-4 group hover:scale-110 transition-transform hover:shadow-lg">
+        {React.cloneElement(icon as React.ReactElement<any>, { className: `w-7 h-7 ${color}` })}
       </div>
-      <h4 className="font-bold text-gray-800 text-sm bg-white/80 px-2 rounded-full shadow-sm border border-gray-50">{title}</h4>
+      <h4 className="font-bold text-gray-900 text-sm bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm border border-gray-100">{title}</h4>
     </motion.div>
   );
 };
+
+const MobileNode = ({ icon, title, color }: { icon: React.ReactNode, title: string, color: string }) => (
+  <div className="flex flex-col items-center w-24">
+    <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center mb-2">
+      {React.cloneElement(icon as React.ReactElement<any>, { className: `w-5 h-5 ${color}` })}
+    </div>
+    <span className="text-xs font-bold text-gray-700">{title}</span>
+  </div>
+);
