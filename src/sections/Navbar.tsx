@@ -1,59 +1,53 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe, Wheat } from 'lucide-react';
-import { Button } from '../components/Button';
-import { MotionButton } from '../components/MotionButton';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-lg shadow-sm py-4' : 'bg-transparent pt-6'} px-4 sm:px-6 lg:px-8`}>
-      <div className="max-w-7xl mx-auto flex justify-between items-center h-16">
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-xl shadow-[0_1px_0_rgb(0,0,0,0.04)] py-3' : 'bg-transparent py-5'} px-4 sm:px-6 lg:px-8`}>
+      <div className="max-w-7xl mx-auto flex justify-between items-center h-14">
         
         {/* Logo */}
         <div className="flex-shrink-0 flex items-center cursor-pointer">
-          <Wheat className="w-8 h-8 text-green-600" />
-          <span className="ml-2 text-2xl font-bold tracking-tight text-gray-900">
-            AgriScribe<span className="text-green-500">.ai</span>
+          <Wheat className={`w-7 h-7 ${scrolled ? 'text-green-600' : 'text-white'} transition-colors`} />
+          <span className={`ml-2 text-xl font-bold tracking-tight ${scrolled ? 'text-gray-900' : 'text-white'} transition-colors`}>
+            AgriScribe<span className={`${scrolled ? 'text-green-500' : 'text-green-300'} transition-colors`}>.ai</span>
           </span>
         </div>
 
-        {/* Center Navigation Pill */}
-        <div className="hidden lg:flex items-center space-x-2 bg-white/60 backdrop-blur-md rounded-full px-2 py-2 shadow-sm border border-black/5">
-          <a href="#how-it-works" className="bg-gray-900 text-white px-5 py-2 rounded-full text-sm font-medium transition-colors">How It Works</a>
-          <a href="#features" className="text-gray-700 hover:text-gray-900 px-5 py-2 rounded-full text-sm font-medium transition-colors">Features</a>
-          <a href="#impact" className="text-gray-700 hover:text-gray-900 px-5 py-2 rounded-full text-sm font-medium transition-colors">Impact</a>
+        {/* Center Navigation */}
+        <div className="hidden lg:flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-full px-1.5 py-1.5 border border-white/10">
+          <a href="#how-it-works" className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${scrolled ? 'bg-gray-900 text-white' : 'bg-white/15 text-white'}`}>How It Works</a>
+          <a href="#features" className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${scrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/70 hover:text-white'}`}>Features</a>
         </div>
 
-        {/* Right Actions */}
-        <div className="hidden md:flex items-center space-x-4">
-          <div className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 cursor-pointer transition-colors pr-4 border-r border-gray-200">
-            <Globe className="w-5 h-5" />
-            <span className="text-sm font-medium">EN</span>
+        {/* Right */}
+        <div className="hidden md:flex items-center gap-4">
+          <div className={`flex items-center gap-1.5 text-sm font-medium cursor-pointer transition-colors ${scrolled ? 'text-gray-500 hover:text-gray-700' : 'text-white/60 hover:text-white'}`}>
+            <Globe className="w-4 h-4" />
+            <span>EN</span>
           </div>
-          <MotionButton label="Enter My Farm" />
+          <a href="#" className={`text-sm font-semibold px-6 py-2.5 rounded-full transition-all ${scrolled ? 'bg-gray-900 text-white hover:bg-gray-800' : 'bg-white text-gray-900 hover:bg-gray-100'}`}>
+            Enter My Farm
+          </a>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="flex md:hidden items-center">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-800 hover:text-green-600 focus:outline-none bg-white/50 p-2 rounded-full backdrop-blur-sm"
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-        
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`md:hidden p-2 rounded-full transition-colors ${scrolled ? 'text-gray-800 bg-gray-100' : 'text-white bg-white/10'}`}
+        >
+          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
@@ -63,22 +57,15 @@ export const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white mt-4 rounded-2xl shadow-xl overflow-hidden border border-gray-100 mx-4"
+            className="md:hidden bg-white mt-3 rounded-2xl shadow-xl overflow-hidden border border-gray-100 mx-2"
           >
-            <div className="px-4 py-6 space-y-4">
-              <a href="#how-it-works" className="block px-3 py-2 rounded-xl text-base font-medium text-gray-900 hover:bg-gray-50">How It Works</a>
-              <a href="#features" className="block px-3 py-2 rounded-xl text-base font-medium text-gray-900 hover:bg-gray-50">Features</a>
-              <a href="#impact" className="block px-3 py-2 rounded-xl text-base font-medium text-gray-900 hover:bg-gray-50">Impact</a>
-              
-              <div className="flex items-center space-x-2 px-3 py-2 text-gray-700 bg-gray-50 rounded-xl">
-                <Globe className="w-5 h-5" />
-                <span className="font-medium">English</span>
-              </div>
-              
-              <div className="pt-4">
-                <button className="w-full text-center text-sm font-medium text-white bg-gray-900 rounded-full px-5 py-3 hover:bg-gray-800 transition-colors">
+            <div className="px-4 py-5 space-y-2">
+              <a href="#how-it-works" className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-900 hover:bg-gray-50">How It Works</a>
+              <a href="#features" className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-900 hover:bg-gray-50">Features</a>
+              <div className="pt-3">
+                <a href="#" className="block text-center text-sm font-semibold text-white bg-gray-900 rounded-full px-5 py-3 hover:bg-gray-800 transition-colors">
                   Enter My Farm
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>
@@ -87,4 +74,3 @@ export const Navbar = () => {
     </nav>
   );
 };
-
